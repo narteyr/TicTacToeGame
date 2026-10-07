@@ -126,19 +126,16 @@ class TicTacToeViewModel : ViewModel() {
             Log.d("CHECK_PLAYER", "isVertical: $isVertical  pos:$j, $cellY")
         }
 
+        //diagonal from left to right downwards, only if the cell is on it
         var isDownDiagonal = true
+        //diagonal from left to right upwards, only if the cell is on it
         var isUpDiagonal = true
-        if (cellX == cellY) {
-            //diagonal from left to right downwards
-            for( i in 0 until board.size) {
-                Log.d("CHECK_PLAYER", "isDownDiagonal: $isDownDiagonal pos:$i,$i, isUpDiagonal: $isUpDiagonal pos:${board.size - 1 - i},$i")
-                if(board[i][i] != currentPlayer) isDownDiagonal = false
-                if(board[board.size - 1 - i][i] != currentPlayer) isUpDiagonal = false
-            }
-
-            return isVertical or isHorizontal or isDownDiagonal or isUpDiagonal
+        for( i in 0 until board.size) {
+            Log.d("CHECK_PLAYER", "isDownDiagonal: $isDownDiagonal pos:$i,$i, isUpDiagonal: $isUpDiagonal pos:${board.size - 1 - i},$i")
+            if(board[i][i] != currentPlayer) isDownDiagonal = false
+            if(board[board.size - 1 - i][i] != currentPlayer) isUpDiagonal = false
         }
 
-        return isVertical or isHorizontal
+        return isVertical or isHorizontal or isDownDiagonal or isUpDiagonal
     }
 }
